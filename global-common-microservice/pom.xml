@@ -4,9 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>global-common-microservice</artifactId>
-	<packaging>pom</packaging>
 	<name>global-common-microservice</name>
 	<description>Microservice related common dependency.</description>
+
+	<properties>
+		<swagger.version>2.9.2</swagger.version>
+	</properties>
 
 	<parent>
 		<groupId>com.calendario</groupId>
@@ -30,7 +33,16 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-bus-amqp</artifactId>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-sleuth</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-zipkin</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
@@ -41,6 +53,29 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-bean-validators</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
 		</dependency>
 	</dependencies>
 </project>

@@ -14,6 +14,7 @@
 	<modules>
 		<module>../global-parent</module>
 		<module>../global-common-microservice</module>
+		<module>../global-parent-with-common-microservice</module>
 		<module>../global-common-database</module>
 	</modules>
 </project>
