@@ -1,7 +1,6 @@
 HELP.md
 /logs/
 /target/
-/src/main/resources/images/arts/
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
