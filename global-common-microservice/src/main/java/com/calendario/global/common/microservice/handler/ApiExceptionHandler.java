@@ -1,7 +1,7 @@
 /**
  * @ProjectName: global-common-microservice
  * @PackageName: com.calendario.global.common.microservice.handler
- * @FileName: GlobalExceptionHandler.java
+ * @FileName: ApiExceptionHandler.java
  * @Author: Avishek Das
  * @CreatedDate: 02-04-2020
  * @Modified_By avishekdas @Last_On 02-Apr-2020 3:39:08 pm
@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestControllerAdvice
 @Slf4j
-public class GlobalExceptionHandler {
+public class ApiExceptionHandler {
 
 	/**
 	 * Method is used to handle NoHandlerFoundException.
