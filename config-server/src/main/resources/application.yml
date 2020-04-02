@@ -1,0 +1,28 @@
+server:
+  port: 8031
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    bus:
+      enabled: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    virtual-host: calendario_vhost
+    username: calendario
+    password: calendario
+  security:
+    user:
+      name: configserver
+      password: configserver
+      roles:
+      - ADMIN
+
+eureka:
+  client:
+    region: default
+    registry-fetch-interval-seconds: 10
+    serviceUrl:
+      defaultZone: http://eurekaserver:eurekaserver@localhost:8030/eureka/

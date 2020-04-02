@@ -1,0 +1,22 @@
+spring:
+  cloud:
+    inetutils:
+      ignoredInterfaces:
+        - docker
+        - eth.*
+        - lo
+      preferredNetworks:
+        - 10.0.0
+    config:
+      server:
+        git:
+          uri: https://github.com/imavishek/calendario-configuration.git
+          search-paths:
+          - config-repo
+          - config-repo/*
+
+encrypt:
+  key-store:
+    location: classpath:/encryptionKey.jks
+    password: calendario
+    alias: EncryptionKey
