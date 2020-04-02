@@ -1,0 +1,28 @@
+server:
+  port: 8034
+
+eureka:
+  client:
+    region: default
+    registry-fetch-interval-seconds: 10
+    serviceUrl:
+      defaultZone: http://eurekaserver:eurekaserver@localhost:8030/eureka/
+
+spring:
+  application:
+    name: zuul-gateway
+  cloud:
+    inetutils:
+      ignoredInterfaces:
+        - docker
+        - eth.*
+        - lo
+      preferredNetworks:
+        - 10.0.0
+    config:
+      name: zuul-gateway
+      discovery:
+        service-id: config-server
+        enabled: true
+      username: configserver
+      password: configserver
