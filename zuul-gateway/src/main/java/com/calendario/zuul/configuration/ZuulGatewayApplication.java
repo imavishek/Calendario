@@ -17,7 +17,8 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class,
-		ManagementWebSecurityAutoConfiguration.class }, scanBasePackages = { "com.calendario.zuul.*" })
+		ManagementWebSecurityAutoConfiguration.class }, scanBasePackages = {
+				"com.calendario.global.common.microservice.*", "com.calendario.zuul.*" })
 @EnableZuulProxy
 @EnableEurekaClient
 public class ZuulGatewayApplication {
