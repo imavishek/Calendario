@@ -1,0 +1,1 @@
+docker run -d -e POSTGRES_USER="calendario" -e POSTGRES_PASSWORD="calendario" -e POSTGRES_DB="oauth_server"  -p 5432:5432 postgres:9.3

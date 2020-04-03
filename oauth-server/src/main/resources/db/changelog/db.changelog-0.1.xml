@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+	<changeSet author="Avishek Das" id="V-0.1-1">
+		<comment>Create table to store user credential.</comment>
+
+		<createTable remarks="User credential" tableName="user">
+			<column name="user_id" type="uuid">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="User_PK_UserId"/>
+			</column>
+			<column name="user_name" type="varchar(80)">
+				<constraints nullable="false" unique="true" uniqueConstraintName="User_UK_Username"/>
+			</column>
+			<column name="password" type="varchar(80)"/>
+			<column name="created_date" type="datetime">
+				<constraints nullable="false"/>
+			</column>
+			<column name="updated_date" type="datetime"/>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="Avishek Das" id="V-0.1-2">
+		<comment>Create table to store OAuth client details.</comment>
+
+		<createTable remarks="OAuth client details" tableName="oauth_client_details">
+			<column name="client_id" type="varchar(256)">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="OauthClientDetails_PK_ClientId"/>
+			</column>
+			<column name="resource_ids" type="varchar(256)" />
+			<column name="client_secret" type="varchar(256)" />
+			<column name="scope" type="varchar(256)" />
+			<column name="authorized_grant_types" type="varchar(256)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="web_server_redirect_uri" type="varchar(256)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="authorities" type="varchar(256)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="access_token_validity" type="int(11)" />
+			<column name="refresh_token_validity" type="int(11)" />
+			<column name="additional_information" type="varchar(256)" />
+			<column name="autoapprove" type="varchar(256)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet author="Avishek Das" id="V-0.1-3">
+		<comment>Create table to store OAuth access token details.</comment>
+
+		<createTable remarks="OAuth access token details" tableName="oauth_access_token">
+			<column name="token_id" type="varchar(256)" />
+			<column name="token" type="mediumblob" />
+			<column name="authentication_id" type="varchar(256)">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="OauthAccessToken_PK_AuthenticationId"/>
+			</column>
+			<column name="user_name" type="varchar(256)" />
+			<column name="client_id" type="varchar(256)" />
+			<column name="authentication" type="mediumblob" />
+			<column name="refresh_token" type="varchar(256)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet author="Avishek Das" id="V-0.1-4">
+		<comment>Create table to store OAuth refresh token details.</comment>
+
+		<createTable remarks="OAuth refresh token details" tableName="oauth_refresh_token">
+			<column name="token_id" type="varchar(256)" />
+			<column name="token" type="mediumblob" />
+			<column name="authentication" type="mediumblob" />
+		</createTable>
+	</changeSet>
+
+	<changeSet author="Avishek Das" id="V-0.1-5">
+		<comment>Insert default OAuth client details.</comment>
+
+		<insert tableName="oauth_client_details">
+			<column name="client_id" value="calendario"></column>
+			<column name="client_secret" value="$2a$10$wvblHhYXFDdXXrgyEDXFHewnX97QZ3KjyvbIgkKkDw0QcigJUaql."></column>
+			<column name="scope" value="read,write"></column>
+			<column name="authorized_grant_types" value="password,refresh_token"></column>
+			<column name="web_server_redirect_uri" value="http://www.calendario.in"></column>
+			<column name="authorities" value="ROLE_CLIENT,ROLE_TRUSTED_CLIENT"></column>
+			<column name="access_token_validity" value="7200"></column>
+			<column name="refresh_token_validity" value="36000"></column>
+			<column name="autoapprove" value="true"></column>
+		</insert>
+	</changeSet>
+
+</databaseChangeLog>

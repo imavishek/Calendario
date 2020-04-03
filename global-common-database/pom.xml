@@ -11,9 +11,9 @@
 
 	<parent>
 		<groupId>com.calendario</groupId>
-		<artifactId>global-parent</artifactId>
+		<artifactId>global-parent-with-common-microservice</artifactId>
 		<version>0.0.1</version>
-		<relativePath>../global-parent</relativePath>
+		<relativePath>../global-parent-with-common-microservice</relativePath>
 	</parent>
 
 	<dependencies>

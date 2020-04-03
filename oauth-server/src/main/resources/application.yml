@@ -1,0 +1,8 @@
+server:
+  port: 8035
+
+spring:
+  application:
+    name: oauth-server
+  liquibase:
+    change-log: classpath:/db/db.changelog-master.xml

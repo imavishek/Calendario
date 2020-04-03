@@ -12,7 +12,8 @@ package com.calendario.global.common.microservice.constant.enums;
 public enum Status {
 
 	C_0("Failed", 0),
-	C_1("Success", 1);
+	C_1("Success", 1),
+	C_1000("Oauth Server Error", 1000);
 
 	private final String message;
 	private final Integer code;

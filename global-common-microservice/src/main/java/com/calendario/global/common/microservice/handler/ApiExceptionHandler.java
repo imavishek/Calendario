@@ -11,6 +11,9 @@ package com.calendario.global.common.microservice.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -36,6 +39,68 @@ public class ApiExceptionHandler {
 
 		HttpStatus status = HttpStatus.NOT_FOUND;
 		String message = "The page you are looking for might have been removed had its name changed or is temporarily unavailable.";
+
+		Response<Object> response = ResponseUtil.getResponse(status.value(), "Not Found", message, null);
+
+		log.error(response.toString());
+
+		return new ResponseEntity<>(response, status);
+	}
+
+	/**
+	 * Method is used to handle HttpRequestMethodNotSupportedException.
+	 * 
+	 * @param e : HttpRequestMethodNotSupportedException class object.
+	 * @return ResponseEntity : Object containing the response status and Response
+	 *         object.
+	 */
+	@ExceptionHandler({ HttpRequestMethodNotSupportedException.class })
+	public ResponseEntity<Response<Object>> handleHttpRequestMethodNotSupportedException(
+			HttpRequestMethodNotSupportedException e) {
+
+		HttpStatus status = HttpStatus.METHOD_NOT_ALLOWED;
+		String message = e.getMessage();
+
+		Response<Object> response = ResponseUtil.getResponse(status.value(), "Method Not Allowed", message, null);
+
+		log.error(response.toString());
+
+		return new ResponseEntity<>(response, status);
+	}
+
+	/**
+	 * Method is used to handle MissingServletRequestParameterException.
+	 * 
+	 * @param e : MissingServletRequestParameterException class object.
+	 * @return ResponseEntity : Object containing the response status and Response
+	 *         object.
+	 */
+	@ExceptionHandler({ MissingServletRequestParameterException.class })
+	public ResponseEntity<Response<Object>> handleMissingServletRequestParameterException(
+			MissingServletRequestParameterException e) {
+
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		String message = e.getMessage();
+
+		Response<Object> response = ResponseUtil.getResponse(status.value(), "Bad Request", message, null);
+
+		log.error(response.toString());
+
+		return new ResponseEntity<>(response, status);
+	}
+
+	/**
+	 * Method is used to handle UsernameNotFoundException.
+	 * 
+	 * @param e : UsernameNotFoundException class object.
+	 * @return ResponseEntity : Object containing the response status and Response
+	 *         object.
+	 */
+	@ExceptionHandler({ UsernameNotFoundException.class })
+	public ResponseEntity<Response<Object>> handleUsernameNotFoundException(UsernameNotFoundException e) {
+
+		HttpStatus status = HttpStatus.NOT_FOUND;
+		String message = "User not found. EmailId: " + e.getMessage();
 
 		Response<Object> response = ResponseUtil.getResponse(status.value(), "Not Found", message, null);
 

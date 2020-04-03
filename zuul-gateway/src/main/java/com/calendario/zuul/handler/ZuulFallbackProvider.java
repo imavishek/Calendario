@@ -45,17 +45,17 @@ public class ZuulFallbackProvider implements FallbackProvider {
 		return new ClientHttpResponse() {
 			@Override
 			public HttpStatus getStatusCode() throws IOException {
-				return HttpStatus.OK;
+				return HttpStatus.SERVICE_UNAVAILABLE;
 			}
 
 			@Override
 			public int getRawStatusCode() throws IOException {
-				return HttpStatus.OK.value();
+				return HttpStatus.SERVICE_UNAVAILABLE.value();
 			}
 
 			@Override
 			public String getStatusText() throws IOException {
-				return HttpStatus.OK.toString();
+				return HttpStatus.SERVICE_UNAVAILABLE.toString();
 			}
 
 			@Override
