@@ -16,5 +16,6 @@
 		<module>../config-server</module>
 		<module>../zuul-gateway</module>
 		<module>../oauth-server</module>
+		<module>../user-service</module>
 	</modules>
 </project>

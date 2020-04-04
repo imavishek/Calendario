@@ -11,14 +11,19 @@ package com.calendario.global.common.microservice.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.calendario.global.common.microservice.dto.Response;
+import com.calendario.global.common.microservice.exceptions.CalendarioInvalidTokenException;
+import com.calendario.global.common.microservice.exceptions.CalendarioNotFoundApiException;
+import com.calendario.global.common.microservice.exceptions.CalendarioUserEmailExistsException;
 import com.calendario.global.common.microservice.util.ResponseUtil;
 
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +47,8 @@ public class ApiExceptionHandler {
 
 		Response<Object> response = ResponseUtil.getResponse(status.value(), "Not Found", message, null);
 
-		log.error(response.toString());
+		log.error(e.getMessage() + " [Exception " + e.getClass() + "]");
+		log.info(response.toString());
 
 		return new ResponseEntity<>(response, status);
 	}
@@ -63,7 +69,8 @@ public class ApiExceptionHandler {
 
 		Response<Object> response = ResponseUtil.getResponse(status.value(), "Method Not Allowed", message, null);
 
-		log.error(response.toString());
+		log.error(e.getMessage() + " [Exception " + e.getClass() + "]");
+		log.info(response.toString());
 
 		return new ResponseEntity<>(response, status);
 	}
@@ -84,7 +91,8 @@ public class ApiExceptionHandler {
 
 		Response<Object> response = ResponseUtil.getResponse(status.value(), "Bad Request", message, null);
 
-		log.error(response.toString());
+		log.error(e.getMessage() + " [Exception " + e.getClass() + "]");
+		log.info(response.toString());
 
 		return new ResponseEntity<>(response, status);
 	}
@@ -104,7 +112,114 @@ public class ApiExceptionHandler {
 
 		Response<Object> response = ResponseUtil.getResponse(status.value(), "Not Found", message, null);
 
-		log.error(response.toString());
+		log.error(e.getMessage() + " [Exception " + e.getClass() + "]");
+		log.info(response.toString());
+
+		return new ResponseEntity<>(response, status);
+	}
+
+	/**
+	 * Method is used to handle common bad request Exception.
+	 * 
+	 * @param e : Exception class object.
+	 * @return ResponseEntity : Object containing the response status and Response
+	 *         object.
+	 */
+	@ExceptionHandler({ MethodArgumentTypeMismatchException.class, HttpMessageNotReadableException.class })
+	public ResponseEntity<Response<Object>> handleCommonBadRequestException(Exception e) {
+
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		String message = e.getMessage();
+
+		Response<Object> response = ResponseUtil.getResponse(status.value(), "Bad Request", message, null);
+
+		log.error(e.getMessage() + " [Exception " + e.getClass() + "]");
+		log.info(response.toString());
+
+		return new ResponseEntity<>(response, status);
+	}
+
+	/**
+	 * Method is used to handle IllegalStateException.
+	 * 
+	 * @param e : IllegalStateException class object.
+	 * @return ResponseEntity : Object containing the response status and Response
+	 *         object.
+	 */
+	@ExceptionHandler({ IllegalStateException.class })
+	public ResponseEntity<Response<Object>> handleIllegalStateException(IllegalStateException e) {
+
+		HttpStatus status = HttpStatus.SERVICE_UNAVAILABLE;
+		String message = "Service is unavailable or down. Please try later.";
+
+		Response<Object> response = ResponseUtil.getResponse(status.value(), "Service Unavailable", message, null);
+
+		log.error(e.getMessage() + " [Exception " + e.getClass() + "]");
+		log.info(response.toString());
+
+		return new ResponseEntity<>(response, status);
+	}
+
+	/**
+	 * Method is used to handle CalendarioUserEmailExistsException.
+	 * 
+	 * @param e : CalendarioUserEmailExistsException class object.
+	 * @return ResponseEntity : Object containing the response status and Response
+	 *         object.
+	 */
+	@ExceptionHandler({ CalendarioUserEmailExistsException.class })
+	public ResponseEntity<Response<Object>> handleCalendarioUserEmailExistsException(
+			CalendarioUserEmailExistsException e) {
+
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		String message = e.getMessage();
+
+		Response<Object> response = ResponseUtil.getResponse(status.value(), "Bad Request", message, null);
+
+		log.error(e.getMessage() + " [Exception " + e.getClass() + "]");
+		log.info(response.toString());
+
+		return new ResponseEntity<>(response, status);
+	}
+
+	/**
+	 * Method is used to handle CalendarioNotFoundApiException.
+	 * 
+	 * @param e : CalendarioNotFoundApiException class object.
+	 * @return ResponseEntity : Object containing the response status and Response
+	 *         object.
+	 */
+	@ExceptionHandler({ CalendarioNotFoundApiException.class })
+	public ResponseEntity<Response<Object>> handleCalendarioNotFoundApiException(CalendarioNotFoundApiException e) {
+
+		HttpStatus status = HttpStatus.NOT_FOUND;
+		String message = e.getMessage();
+
+		Response<Object> response = ResponseUtil.getResponse(status.value(), "Not Found", message, null);
+
+		log.error(e.getMessage() + " [Exception " + e.getClass() + "]");
+		log.info(response.toString());
+
+		return new ResponseEntity<>(response, status);
+	}
+
+	/**
+	 * Method is used to handle CalendarioInvalidTokenException.
+	 * 
+	 * @param e : CalendarioInvalidTokenException class object.
+	 * @return ResponseEntity : Object containing the response status and Response
+	 *         object.
+	 */
+	@ExceptionHandler({ CalendarioInvalidTokenException.class })
+	public ResponseEntity<Response<Object>> handleCalendarioInvalidTokenException(CalendarioInvalidTokenException e) {
+
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		String message = e.getMessage();
+
+		Response<Object> response = ResponseUtil.getResponse(status.value(), "Bad Request", message, null);
+
+		log.error(e.getMessage() + " [Exception " + e.getClass() + "]");
+		log.info(response.toString());
 
 		return new ResponseEntity<>(response, status);
 	}
@@ -125,6 +240,7 @@ public class ApiExceptionHandler {
 		Response<Object> response = ResponseUtil.getResponse(status.value(), "Internal Server Error", message, null);
 
 		log.error(e.getMessage() + " [Exception " + e.getClass() + "]");
+		log.info(response.toString());
 
 		return new ResponseEntity<>(response, status);
 	}

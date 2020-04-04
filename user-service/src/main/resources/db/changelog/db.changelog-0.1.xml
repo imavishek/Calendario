@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+	<changeSet author="Avishek Das" id="V-0.1-1">
+		<comment>Create table to store user data.</comment>
+
+		<createTable remarks="User Details" tableName="user">
+			<column name="user_id" type="uuid">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="User_PK_UserId"/>
+			</column>
+			<column name="name" type="varchar(80)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="email" type="varchar(80)">
+				<constraints nullable="false" unique="true" uniqueConstraintName="User_UK_Email"/>
+			</column>
+			<column name="token" type="uuid">
+				<constraints nullable="true" unique="true" uniqueConstraintName="User_UK_Token"/>
+			</column>
+			<column name="token_generate_date" type="datetime"/>
+			<column name="active" type="tinyint(1)" defaultValue="0"/>
+			<column name="created_date" type="datetime">
+				<constraints nullable="false"/>
+			</column>
+			<column name="updated_date" type="datetime"/>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="Avishek Das" id="V-0.1-2">
+		<comment>Create table to store available meeting slots of users.</comment>
+
+		<createTable remarks="Meeting slots details" tableName="available_slot">
+			<column name="slot_id" type="uuid">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="AvailableSlot_PK_SlotId"/>
+			</column>
+			<column name="date" type="date">
+				<constraints nullable="false"/>
+			</column>
+			<column name="duration" type="int">
+				<constraints nullable="false"/>
+			</column>
+			<column name="start_time" type="time">
+				<constraints nullable="false"/>
+			</column>
+			<column name="end_time" type="time">
+				<constraints nullable="false"/>
+			</column>
+			<column name="reason" type="varchar(256)" />
+			<column name="status" type="tinyint(1)" defaultValue="1"/>
+			<column name="user_id" type="uuid">
+				<constraints nullable="false"/>
+			</column>
+			<column name="created_date" type="datetime">
+				<constraints nullable="false"/>
+			</column>
+			<column name="updated_date" type="datetime"/>
+		</createTable>
+
+		<addForeignKeyConstraint baseTableName="available_slot" baseColumnNames="user_id" constraintName="AvailableSlot_FK_UserId" referencedTableName="user"
+								 referencedColumnNames="user_id" onDelete="CASCADE" onUpdate="CASCADE"/>
+	</changeSet>
+
+	<changeSet author="Avishek Das" id="V-0.1-3">
+		<comment>Create table to store event details.</comment>
+
+		<createTable remarks="Event details" tableName="event">
+			<column name="event_id" type="uuid">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="Event_PK_EventId"/>
+			</column>
+			<column name="slot_id" type="uuid">
+				<constraints nullable="false" referencedTableName="available_slot" referencedColumnNames="slot_id" foreignKeyName="Event_FK_SlotId"/>
+			</column>
+			<column name="host_id" type="uuid">
+				<constraints nullable="false" referencedTableName="user" referencedColumnNames="user_id" foreignKeyName="Event_FK_HostId"/>
+			</column>
+			<column name="participant_id" type="uuid">
+				<constraints nullable="false" referencedTableName="user" referencedColumnNames="user_id" foreignKeyName="Event_FK_ParticipantId"/>
+			</column>
+			<column name="link" type="varchar(80)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="status" type="tinyint(1)" defaultValue="1"/>
+			<column name="created_date" type="datetime">
+				<constraints nullable="false"/>
+			</column>
+			<column name="updated_date" type="datetime"/>
+		</createTable>
+	</changeSet>
+</databaseChangeLog>

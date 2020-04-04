@@ -1,13 +1,13 @@
 /**
- * @ProjectName: oauth-server
- * @PackageName: com.calendario.oauth.configuration
+ * @ProjectName: global-common-microservice
+ * @PackageName: com.calendario.global.common.microservice.configuration
  * @FileName: WebConfiguration.java
  * @Author: Avishek Das
- * @CreatedDate: 03-04-2020
- * @Modified_By avishekdas @Last_On 03-Apr-2020 9:37:30 pm
+ * @CreatedDate: 04-04-2020
+ * @Modified_By avishekdas @Last_On 04-Apr-2020 7:26:06 pm
  */
 
-package com.calendario.oauth.configuration;
+package com.calendario.global.common.microservice.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
