@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.calendario.global.common.microservice.constant.UserServiceEndpointUrl;
 import com.calendario.global.common.microservice.constant.enums.Status;
 import com.calendario.global.common.microservice.dto.Response;
+import com.calendario.global.common.microservice.exceptions.CalendarioBadRequestApiException;
 import com.calendario.global.common.microservice.exceptions.CalendarioInvalidTokenException;
-import com.calendario.global.common.microservice.exceptions.CalendarioNotFoundApiException;
 import com.calendario.global.common.microservice.exceptions.CalendarioUserEmailExistsException;
 import com.calendario.global.common.microservice.util.ResponseUtil;
 import com.calendario.user.dto.ActiveProfileDto;
@@ -57,11 +57,12 @@ public class UserRegistrationController {
 	 * @param userRegisterDto : Object containing the value of registration field.
 	 * @return Response : Object containing the response status, message and data.
 	 * @throws CalendarioUserEmailExistsException
+	 * @throws CalendarioBadRequestApiException
 	 */
 	@PostMapping(value = UserServiceEndpointUrl.REGISTER_USER, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Register user")
 	public Response<Object> register(@RequestBody UserRegisterDto userRegisterDto)
-			throws CalendarioUserEmailExistsException {
+			throws CalendarioUserEmailExistsException, CalendarioBadRequestApiException {
 
 		String message = null;
 		Status status = null;
@@ -114,12 +115,12 @@ public class UserRegistrationController {
 	 * @return Response : Object containing the response status, message and data.
 	 * @throws CalendarioInvalidTokenException
 	 * @throws URISyntaxException
-	 * @throws CalendarioNotFoundApiException
+	 * @throws CalendarioBadRequestApiException
 	 */
 	@PostMapping(value = UserServiceEndpointUrl.REGISTRATION_CONFIRM, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "Registration Confirm")
 	public Response<Object> activeProfile(@RequestBody ActiveProfileDto activeProfileDto)
-			throws CalendarioInvalidTokenException, URISyntaxException {
+			throws CalendarioInvalidTokenException, URISyntaxException, CalendarioBadRequestApiException {
 
 		String message = null;
 		Status status = null;

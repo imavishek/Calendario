@@ -24,12 +24,15 @@ import org.springframework.web.client.RestTemplate;
 
 import com.calendario.global.common.microservice.constant.enums.Status;
 import com.calendario.global.common.microservice.dto.Response;
+import com.calendario.global.common.microservice.exceptions.CalendarioBadRequestApiException;
 import com.calendario.global.common.microservice.exceptions.CalendarioInvalidTokenException;
 import com.calendario.global.common.microservice.exceptions.CalendarioUserEmailExistsException;
 import com.calendario.user.dto.ActiveProfileDto;
 import com.calendario.user.dto.PasswordDto;
 import com.calendario.user.dto.UserRegisterDto;
 import com.calendario.user.entities.User;
+import com.calendario.user.producer.RegistrationMailProducer;
+import com.calendario.user.producer.RegistrationSuccessMailProducer;
 import com.calendario.user.properties.MessageProperties;
 import com.calendario.user.properties.TimeProperties;
 import com.calendario.user.properties.UrlProperties;
@@ -51,6 +54,12 @@ public class UserServiceImpl implements UserService {
 	private RestTemplate restTemplate;
 
 	@Autowired
+	private RegistrationMailProducer registrationMailProducer;
+
+	@Autowired
+	private RegistrationSuccessMailProducer registrationSuccessMailProducer;
+
+	@Autowired
 	private MessageProperties messageProperties;
 
 	@Autowired
@@ -60,7 +69,8 @@ public class UserServiceImpl implements UserService {
 	private UrlProperties urlProperties;
 
 	@Override
-	public Boolean register(UserRegisterDto userRegisterDto) throws CalendarioUserEmailExistsException {
+	public Boolean register(UserRegisterDto userRegisterDto)
+			throws CalendarioUserEmailExistsException, CalendarioBadRequestApiException {
 		Boolean success = false;
 
 		// Checking the existence of Email
@@ -83,12 +93,7 @@ public class UserServiceImpl implements UserService {
 		}
 
 		// Send mail to user
-		Boolean isSuccess = true;
-
-		if (!isSuccess) {
-			log.info("Failed to send confirm account message. UserId: " + user.getUserId());
-			return false;
-		}
+		registrationMailProducer.sendMail(user);
 
 		log.info("User registered successfully. UserId: " + user.getUserId());
 
@@ -121,7 +126,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Boolean activeProfile(ActiveProfileDto activeProfileDto)
-			throws CalendarioInvalidTokenException, URISyntaxException {
+			throws CalendarioInvalidTokenException, URISyntaxException, CalendarioBadRequestApiException {
 		Boolean success = false;
 		UUID token = activeProfileDto.getToken();
 		Duration expiration = timeProperties.getExpiration_activeaccount();
@@ -150,6 +155,9 @@ public class UserServiceImpl implements UserService {
 			user.setToken(null);
 			user.setTokenGeneratedDate(null);
 			user = userRepository.save(user);
+
+			// Send mail to user
+			registrationSuccessMailProducer.sendMail(user);
 
 			if (user != null) {
 
