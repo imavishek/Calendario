@@ -17,5 +17,6 @@
 		<module>../zuul-gateway</module>
 		<module>../oauth-server</module>
 		<module>../user-service</module>
+		<module>../message-service</module>
 	</modules>
 </project>

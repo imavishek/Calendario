@@ -1,0 +1,8 @@
+server:
+  port: 8037
+
+spring:
+  application:
+    name: message-service
+  liquibase:
+    change-log: classpath:/db/db.changelog-master.xml

@@ -21,6 +21,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.calendario.global.common.microservice.dto.Response;
+import com.calendario.global.common.microservice.exceptions.CalendarioBadRequestApiException;
 import com.calendario.global.common.microservice.exceptions.CalendarioInvalidTokenException;
 import com.calendario.global.common.microservice.exceptions.CalendarioNotFoundApiException;
 import com.calendario.global.common.microservice.exceptions.CalendarioUserEmailExistsException;
@@ -212,6 +213,27 @@ public class ApiExceptionHandler {
 	 */
 	@ExceptionHandler({ CalendarioInvalidTokenException.class })
 	public ResponseEntity<Response<Object>> handleCalendarioInvalidTokenException(CalendarioInvalidTokenException e) {
+
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		String message = e.getMessage();
+
+		Response<Object> response = ResponseUtil.getResponse(status.value(), "Bad Request", message, null);
+
+		log.error(e.getMessage() + " [Exception " + e.getClass() + "]");
+		log.info(response.toString());
+
+		return new ResponseEntity<>(response, status);
+	}
+
+	/**
+	 * Method is used to handle CalendarioBadRequestApiException.
+	 * 
+	 * @param e : CalendarioBadRequestApiException class object.
+	 * @return ResponseEntity : Object containing the response status and Response
+	 *         object.
+	 */
+	@ExceptionHandler({ CalendarioBadRequestApiException.class })
+	public ResponseEntity<Response<Object>> handleCalendarioBadRequestApiException(CalendarioBadRequestApiException e) {
 
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		String message = e.getMessage();
