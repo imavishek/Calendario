@@ -20,9 +20,9 @@ import lombok.Data;
 @ApiModel(description = "Available slottime operation dto")
 public class SlotTimeDto {
 
-	@JsonFormat(pattern = "HH:MM")
+	@JsonFormat(pattern = "HH:mm")
 	private LocalTime startTime;
 
-	@JsonFormat(pattern = "HH:MM")
+	@JsonFormat(pattern = "HH:mm")
 	private LocalTime endTime;
 }

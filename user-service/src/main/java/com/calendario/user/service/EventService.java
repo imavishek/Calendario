@@ -9,11 +9,16 @@
 
 package com.calendario.user.service;
 
+import java.util.UUID;
+
 import com.calendario.global.common.microservice.exceptions.CalendarioBadRequestApiException;
 import com.calendario.global.common.microservice.exceptions.CalendarioNotFoundApiException;
+import com.calendario.user.dto.EventDetailsDto;
 import com.calendario.user.dto.EventDto;
 
 public interface EventService {
 
 	Boolean createEvent(EventDto eventDto) throws CalendarioNotFoundApiException, CalendarioBadRequestApiException;
+
+	EventDetailsDto getEventDetailsByEventId(UUID eventId) throws CalendarioNotFoundApiException;
 }

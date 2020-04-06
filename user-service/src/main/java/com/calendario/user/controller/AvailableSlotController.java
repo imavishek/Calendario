@@ -9,9 +9,13 @@
 
 package com.calendario.user.controller;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +25,7 @@ import com.calendario.global.common.microservice.constant.enums.Status;
 import com.calendario.global.common.microservice.dto.Response;
 import com.calendario.global.common.microservice.exceptions.CalendarioNotFoundApiException;
 import com.calendario.global.common.microservice.util.ResponseUtil;
+import com.calendario.user.dto.AvailableSlotsDto;
 import com.calendario.user.dto.SlotDto;
 import com.calendario.user.properties.MessageProperties;
 import com.calendario.user.service.AvailableSlotService;
@@ -65,5 +70,26 @@ public class AvailableSlotController {
 		}
 
 		return ResponseUtil.getResponse(status.getCode(), status.getMessage(), message, null);
+	}
+
+	/**
+	 * Method is used as a endpoint to get available slot.
+	 * 
+	 * @param userId
+	 * @return Response : Object containing the response status, message and data.
+	 */
+	@GetMapping(value = UserServiceEndpointUrl.GET_AVAILABLE_SLOT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Get available slot")
+	public Response<Object> getAvailableSlots(@PathVariable UUID userId) {
+
+		String message = null;
+		Status status = Status.C_1;
+
+		AvailableSlotsDto slots = slotService.getAvailableSlots(userId);
+
+		if (slots == null)
+			return ResponseUtil.getResponse(status.getCode(), status.getMessage(), "There is no slot available", null);
+
+		return ResponseUtil.getResponse(status.getCode(), status.getMessage(), message, slots);
 	}
 }

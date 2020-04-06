@@ -65,7 +65,7 @@
 		<addForeignKeyConstraint baseTableName="available_slot" baseColumnNames="user_id" constraintName="AvailableSlot_FK_UserId" referencedTableName="user"
 								 referencedColumnNames="user_id" onDelete="CASCADE" onUpdate="CASCADE"/>
 
-		<addUniqueConstraint columnNames="date, duration, start_time, end_time, topic" constraintName="AvailableSlot_UK_UniqueRecord" tableName="available_slot"/>
+		<addUniqueConstraint columnNames="user_id, date, duration, start_time, end_time" constraintName="AvailableSlot_UK_UniqueRecord" tableName="available_slot"/>
 	</changeSet>
 
 	<changeSet author="Avishek Das" id="V-0.1-3">
@@ -91,6 +91,6 @@
 			<column name="updated_date" type="datetime"/>
 		</createTable>
 
-		<addUniqueConstraint columnNames="slot_id duration, participant_id" constraintName="Event_UK_UniqueRecord" tableName="event"/>
+		<addUniqueConstraint columnNames="slot_id" constraintName="Event_UK_UniqueRecord" tableName="event"/>
 	</changeSet>
 </databaseChangeLog>

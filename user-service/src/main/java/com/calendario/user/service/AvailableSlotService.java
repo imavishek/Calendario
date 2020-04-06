@@ -12,6 +12,7 @@ package com.calendario.user.service;
 import java.util.UUID;
 
 import com.calendario.global.common.microservice.exceptions.CalendarioNotFoundApiException;
+import com.calendario.user.dto.AvailableSlotsDto;
 import com.calendario.user.dto.SlotDto;
 import com.calendario.user.entities.AvailableSlot;
 
@@ -22,4 +23,6 @@ public interface AvailableSlotService {
 	AvailableSlot getAvailableSlotBySlotId(UUID slotId);
 
 	void deActivateSlot(UUID slotId) throws CalendarioNotFoundApiException;
+
+	AvailableSlotsDto getAvailableSlots(UUID userId);
 }

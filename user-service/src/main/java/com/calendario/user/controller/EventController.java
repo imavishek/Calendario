@@ -9,9 +9,13 @@
 
 package com.calendario.user.controller;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +26,7 @@ import com.calendario.global.common.microservice.dto.Response;
 import com.calendario.global.common.microservice.exceptions.CalendarioBadRequestApiException;
 import com.calendario.global.common.microservice.exceptions.CalendarioNotFoundApiException;
 import com.calendario.global.common.microservice.util.ResponseUtil;
+import com.calendario.user.dto.EventDetailsDto;
 import com.calendario.user.dto.EventDto;
 import com.calendario.user.properties.MessageProperties;
 import com.calendario.user.service.EventService;
@@ -68,5 +73,24 @@ public class EventController {
 		}
 
 		return ResponseUtil.getResponse(status.getCode(), status.getMessage(), message, null);
+	}
+
+	/**
+	 * Method is used as a endpoint to get event details.
+	 * 
+	 * @param eventId
+	 * @return Response : Object containing the response status, message and data.
+	 * @throws CalendarioNotFoundApiException
+	 */
+	@GetMapping(value = UserServiceEndpointUrl.GET_EVENT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Get available slot")
+	public Response<Object> getEventDetails(@PathVariable UUID eventId) throws CalendarioNotFoundApiException {
+
+		String message = null;
+		Status status = Status.C_1;
+
+		EventDetailsDto event = eventService.getEventDetailsByEventId(eventId);
+
+		return ResponseUtil.getResponse(status.getCode(), status.getMessage(), message, event);
 	}
 }

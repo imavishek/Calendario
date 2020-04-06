@@ -12,13 +12,16 @@ package com.calendario.user.serviceImpl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.calendario.global.common.microservice.exceptions.CalendarioNotFoundApiException;
+import com.calendario.user.dto.AvailableSlotsDto;
 import com.calendario.user.dto.SlotDto;
+import com.calendario.user.dto.SlotResponseDto;
 import com.calendario.user.dto.SlotTimeDto;
 import com.calendario.user.entities.AvailableSlot;
 import com.calendario.user.entities.User;
@@ -83,6 +86,27 @@ public class AvailableSlotServiceImpl implements AvailableSlotService {
 		slot.setStatus((byte) 0);
 
 		availableSlotRepository.save(slot);
+	}
+
+	@Override
+	public AvailableSlotsDto getAvailableSlots(UUID userId) {
+		List<AvailableSlot> availableSlots = availableSlotRepository.findByUserUserIdAndStatus(userId, (byte) 1);
+
+		if (availableSlots.isEmpty())
+			return null;
+
+		List<SlotResponseDto> slots = availableSlots.stream()
+				.map(availableSlot -> new SlotResponseDto(availableSlot.getSlotId(), availableSlot.getDate(),
+						availableSlot.getDuration(), availableSlot.getStartTime(), availableSlot.getEndTime(),
+						availableSlot.getTopic()))
+				.collect(Collectors.toList());
+
+		AvailableSlotsDto availableSlotsDto = new AvailableSlotsDto();
+		availableSlotsDto.setUserId(userId);
+		availableSlotsDto.setName(availableSlots.get(0).getUser().getName());
+		availableSlotsDto.setSlots(slots);
+
+		return availableSlotsDto;
 	}
 
 }

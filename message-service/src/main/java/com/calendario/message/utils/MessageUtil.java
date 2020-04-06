@@ -67,7 +67,7 @@ public class MessageUtil {
 			Template template = config.getTemplate(message.getTemplateName() + ".ftl");
 			String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, message);
 
-			helper.setTo(new InternetAddress(message.getTo()));
+			helper.setTo(new InternetAddress(message.getTo(), "Calendario"));
 			helper.setFrom(new InternetAddress(message.getForm()));
 			if (message.getCc() != null)
 				helper.setCc(new InternetAddress(message.getCc()));

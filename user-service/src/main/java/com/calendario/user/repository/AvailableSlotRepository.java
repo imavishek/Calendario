@@ -9,7 +9,7 @@
 
 package com.calendario.user.repository;
 
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +18,5 @@ import com.calendario.user.entities.AvailableSlot;
 
 public interface AvailableSlotRepository extends JpaRepository<AvailableSlot, UUID> {
 
+	List<AvailableSlot> findByUserUserIdAndStatus(UUID userId, Byte status);
 }

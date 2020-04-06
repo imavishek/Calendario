@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.calendario.global.common.microservice.exceptions.CalendarioBadRequestApiException;
 import com.calendario.global.common.microservice.exceptions.CalendarioNotFoundApiException;
+import com.calendario.user.dto.EventDetailsDto;
 import com.calendario.user.dto.EventDto;
 import com.calendario.user.entities.AvailableSlot;
 import com.calendario.user.entities.Event;
@@ -71,6 +72,27 @@ public class EventServiceImpl implements EventService {
 		success = true;
 
 		return success;
+	}
+
+	@Override
+	public EventDetailsDto getEventDetailsByEventId(UUID eventId) throws CalendarioNotFoundApiException {
+		Event event = eventRepository.findById(eventId)
+				.orElseThrow(() -> new CalendarioNotFoundApiException("Event not found. EventId: " + eventId));
+
+		AvailableSlot slot = event.getSlot();
+
+		EventDetailsDto eventDetails = new EventDetailsDto();
+		eventDetails.setEventId(event.getEventId());
+		eventDetails.setTopic(slot.getTopic());
+		eventDetails.setDate(slot.getDate());
+		eventDetails.setDuration(slot.getDuration());
+		eventDetails.setStartTime(slot.getStartTime());
+		eventDetails.setEndTime(slot.getEndTime());
+		eventDetails.setHostName(event.getSlot().getUser().getName());
+		eventDetails.setParticipantName(event.getParticipant().getName());
+		eventDetails.setLink(event.getLink());
+
+		return eventDetails;
 	}
 
 }

@@ -19,5 +19,9 @@ public class UserServiceEndpointUrl {
 
 	public static final String CREATE_AVAILABLE_SLOT = "/slot/create";
 
+	public static final String GET_AVAILABLE_SLOT = "/slot/get/{userId}";
+
 	public static final String CREATE_EVENT = "/event/create";
+
+	public static final String GET_EVENT = "/event/get/{eventId}";
 }
