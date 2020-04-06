@@ -9,6 +9,7 @@
 
 package com.calendario.global.common.microservice.handler;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.calendario.global.common.microservice.dto.Response;
 import com.calendario.global.common.microservice.exceptions.CalendarioBadRequestApiException;
+import com.calendario.global.common.microservice.exceptions.CalendarioICalendarException;
 import com.calendario.global.common.microservice.exceptions.CalendarioInvalidTokenException;
 import com.calendario.global.common.microservice.exceptions.CalendarioNotFoundApiException;
 import com.calendario.global.common.microservice.exceptions.CalendarioUserEmailExistsException;
@@ -239,6 +241,48 @@ public class ApiExceptionHandler {
 		String message = e.getMessage();
 
 		Response<Object> response = ResponseUtil.getResponse(status.value(), "Bad Request", message, null);
+
+		log.error(e.getMessage() + " [Exception " + e.getClass() + "]");
+		log.info(response.toString());
+
+		return new ResponseEntity<>(response, status);
+	}
+
+	/**
+	 * Method is used to handle DataIntegrityViolationException.
+	 * 
+	 * @param e : DataIntegrityViolationException class object.
+	 * @return ResponseEntity : Object containing the response status and Response
+	 *         object.
+	 */
+	@ExceptionHandler({ DataIntegrityViolationException.class })
+	public ResponseEntity<Response<Object>> handleDataIntegrityViolationException(DataIntegrityViolationException e) {
+
+		HttpStatus status = HttpStatus.BAD_REQUEST;
+		String message = e.getMessage();
+
+		Response<Object> response = ResponseUtil.getResponse(status.value(), "Bad Request", message, null);
+
+		log.error(e.getMessage() + " [Exception " + e.getClass() + "]");
+		log.info(response.toString());
+
+		return new ResponseEntity<>(response, status);
+	}
+
+	/**
+	 * Method is used to handle CalendarioICalendarException.
+	 * 
+	 * @param e : CalendarioICalendarException class object.
+	 * @return ResponseEntity : Object containing the response status and Response
+	 *         object.
+	 */
+	@ExceptionHandler({ CalendarioICalendarException.class })
+	public ResponseEntity<Response<Object>> handleCalendarioICalendarException(CalendarioICalendarException e) {
+
+		HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+		String message = "The server has encountered an unexpected error. Please contact administrator.";
+
+		Response<Object> response = ResponseUtil.getResponse(status.value(), "Internal Server Error", message, null);
 
 		log.error(e.getMessage() + " [Exception " + e.getClass() + "]");
 		log.info(response.toString());

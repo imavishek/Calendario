@@ -16,6 +16,10 @@ public class RabbitMQConstant {
 	public static final String REGD_ROUTING = "regd-routing";
 
 	public static final String REGD_SUCCESSFUL_QUEUE = "regd-success-queue";
-	public static final String REGD_SUCCESSFUL_EXCHANGE = "regd-success-queue";
-	public static final String REGD_SUCCESSFUL_ROUTING = "regd-success-queue";
+	public static final String REGD_SUCCESSFUL_EXCHANGE = "regd-success-exchange";
+	public static final String REGD_SUCCESSFUL_ROUTING = "regd-success-routing";
+
+	public static final String EVENT_NOTIFICATION_QUEUE = "event-notification-queue";
+	public static final String EVENT_NOTIFICATION_EXCHANGE = "event-notification-exchange";
+	public static final String EVENT_NOTIFICATION_ROUTING = "event-notification-routing";
 }

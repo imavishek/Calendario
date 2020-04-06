@@ -9,6 +9,10 @@
 	<name>message-service</name>
 	<description></description>
 
+	<properties>
+		<ical4j.version>4.0.0-alpha2</ical4j.version>
+	</properties>
+
 	<parent>
 		<groupId>com.calendario</groupId>
 		<artifactId>global-common-database</artifactId>
@@ -21,9 +25,32 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-freemarker</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mnode.ical4j</groupId>
+			<artifactId>ical4j</artifactId>
+			<version>${ical4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.cache</groupId>
+			<artifactId>cache-api</artifactId>
 		</dependency>
 	</dependencies>
 </project>

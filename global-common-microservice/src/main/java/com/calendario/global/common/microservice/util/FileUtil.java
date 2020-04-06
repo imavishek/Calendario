@@ -17,15 +17,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class FileUtil {
 
-	public String getDirectoryPath(String directory) {
+	public String getDirectoryPath(String directory, String filename) {
 		File currDir = new File(".");
 		String directoryLocation = StringUtils.chop(currDir.getAbsolutePath()) + directory;
 		File uploadDirectory = new File(directoryLocation);
 
 		if (!uploadDirectory.exists()) {
-			uploadDirectory.mkdir();
+			uploadDirectory.mkdirs();
 		}
 
-		return directoryLocation;
+		return directoryLocation + filename;
 	}
 }

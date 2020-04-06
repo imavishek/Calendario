@@ -16,4 +16,8 @@ public class UserServiceEndpointUrl {
 	public static final String REGISTRATION_CONFIRM = "/user/registrationConfirm";
 
 	public static final String VALIDATE_REGISTER_USER_TOKEN = "/user/validateRegistrationToken/{token}";
+
+	public static final String CREATE_AVAILABLE_SLOT = "/slot/create";
+
+	public static final String CREATE_EVENT = "/event/create";
 }

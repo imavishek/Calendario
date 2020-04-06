@@ -11,6 +11,7 @@ package com.calendario.message.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import com.calendario.global.common.microservice.dto.MessageDto;
+import com.calendario.global.common.microservice.util.FileUtil;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -39,32 +41,45 @@ public class MessageUtil {
 	@Autowired
 	private Configuration config;
 
+	@Autowired
+	private FileUtil fileUtil;
+
 	public Boolean sendEmail(MessageDto message) {
 
 		Boolean success = false;
-		String rootPath = "";
-		MimeMessage mimeMessage = mailSender.createMimeMessage();
-
-		File currDir = new File(".");
-		String path = currDir.getAbsolutePath();
-		rootPath = path.substring(0, path.length() - 1) + "src/main/resources/images/logos/";
+		String rootPath = "/images/logos/";
+		String calendarAttachmentPath = "/calendar/";
 
 		try {
+			MimeMessage mimeMessage = mailSender.createMimeMessage();
+			mimeMessage.addHeaderLine("charset=UTF-8");
+			mimeMessage.addHeaderLine("component=VEVENT");
+			mimeMessage.addHeaderLine("method=REQUEST");
+
 			// set mediaType
-			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+			MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,
+					MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
+
+			if (message.getContentDetails().containsKey("attachCalender"))
+				helper.addAttachment("invite.ics", new File(fileUtil.getDirectoryPath(calendarAttachmentPath,
+						message.getContentDetails().get("eventId") + "-invite.ics")));
 
 			Template template = config.getTemplate(message.getTemplateName() + ".ftl");
 			String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, message);
 
 			helper.setTo(new InternetAddress(message.getTo()));
 			helper.setFrom(new InternetAddress(message.getForm()));
+			if (message.getCc() != null)
+				helper.setCc(new InternetAddress(message.getCc()));
+			if (message.getBcc() != null)
+				helper.setBcc(new InternetAddress(message.getBcc()));
 			helper.setText(html, true);
-			helper.addInline("logo", new File(rootPath + "/Calendario.png"));
-			helper.addInline("google", new File(rootPath + "/ico_google.png"));
-			helper.addInline("facebook", new File(rootPath + "/ico_facebook.png"));
-			helper.addInline("twitter", new File(rootPath + "/ico_twitter.png"));
-			helper.addInline("instagram", new File(rootPath + "/ico_instagram.png"));
-			helper.addInline("linkedin", new File(rootPath + "/ico_linkedin.png"));
+			helper.addInline("logo", new File(fileUtil.getDirectoryPath(rootPath, "/Calendario.png")));
+			helper.addInline("google", new File(fileUtil.getDirectoryPath(rootPath, "/ico_google.png")));
+			helper.addInline("facebook", new File(fileUtil.getDirectoryPath(rootPath, "/ico_facebook.png")));
+			helper.addInline("twitter", new File(fileUtil.getDirectoryPath(rootPath, "/ico_twitter.png")));
+			helper.addInline("instagram", new File(fileUtil.getDirectoryPath(rootPath, "/ico_instagram.png")));
+			helper.addInline("linkedin", new File(fileUtil.getDirectoryPath(rootPath, "/ico_linkedin.png")));
 			helper.setSubject(message.getSubject());
 
 			mailSender.send(mimeMessage);
