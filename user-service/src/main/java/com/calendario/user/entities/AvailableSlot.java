@@ -34,11 +34,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "available_slot")
 @EntityListeners(AuditingEntityListener.class)
 @Data
+@NoArgsConstructor
 public class AvailableSlot implements Serializable {
 
 	@Id
@@ -60,7 +62,7 @@ public class AvailableSlot implements Serializable {
 	@JsonFormat(pattern = "HH:MM")
 	private LocalTime endTime;
 
-	private String reason;
+	private String topic;
 
 	@Column(name = "status", insertable = false)
 	private Byte status;
@@ -78,4 +80,8 @@ public class AvailableSlot implements Serializable {
 	@LastModifiedDate
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date recordUpdated;
+
+	public AvailableSlot(UUID slotId) {
+		this.slotId = slotId;
+	}
 }

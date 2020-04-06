@@ -51,7 +51,7 @@
 			<column name="end_time" type="time">
 				<constraints nullable="false"/>
 			</column>
-			<column name="reason" type="varchar(256)" />
+			<column name="topic" type="varchar(256)" />
 			<column name="status" type="tinyint(1)" defaultValue="1"/>
 			<column name="user_id" type="uuid">
 				<constraints nullable="false"/>
@@ -64,6 +64,8 @@
 
 		<addForeignKeyConstraint baseTableName="available_slot" baseColumnNames="user_id" constraintName="AvailableSlot_FK_UserId" referencedTableName="user"
 								 referencedColumnNames="user_id" onDelete="CASCADE" onUpdate="CASCADE"/>
+
+		<addUniqueConstraint columnNames="date, duration, start_time, end_time, topic" constraintName="AvailableSlot_UK_UniqueRecord" tableName="available_slot"/>
 	</changeSet>
 
 	<changeSet author="Avishek Das" id="V-0.1-3">
@@ -75,9 +77,6 @@
 			</column>
 			<column name="slot_id" type="uuid">
 				<constraints nullable="false" referencedTableName="available_slot" referencedColumnNames="slot_id" foreignKeyName="Event_FK_SlotId"/>
-			</column>
-			<column name="host_id" type="uuid">
-				<constraints nullable="false" referencedTableName="user" referencedColumnNames="user_id" foreignKeyName="Event_FK_HostId"/>
 			</column>
 			<column name="participant_id" type="uuid">
 				<constraints nullable="false" referencedTableName="user" referencedColumnNames="user_id" foreignKeyName="Event_FK_ParticipantId"/>
@@ -91,5 +90,7 @@
 			</column>
 			<column name="updated_date" type="datetime"/>
 		</createTable>
+
+		<addUniqueConstraint columnNames="slot_id duration, participant_id" constraintName="Event_UK_UniqueRecord" tableName="event"/>
 	</changeSet>
 </databaseChangeLog>

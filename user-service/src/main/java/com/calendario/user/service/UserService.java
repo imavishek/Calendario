@@ -31,4 +31,6 @@ public interface UserService {
 			throws CalendarioInvalidTokenException, URISyntaxException, CalendarioBadRequestApiException;
 
 	User getUserByEmail(String email);
+
+	User getUserByUserId(UUID userId);
 }

@@ -175,6 +175,11 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByEmail(email).orElse(null);
 	}
 
+	@Override
+	public User getUserByUserId(UUID userId) {
+		return userRepository.findById(userId).orElse(null);
+	}
+
 	private Boolean savePassword(PasswordDto passwordDto) throws URISyntaxException {
 
 		// OAuth server save password url

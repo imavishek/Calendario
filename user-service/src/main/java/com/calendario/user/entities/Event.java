@@ -49,10 +49,6 @@ public class Event implements Serializable {
 	private AvailableSlot slot;
 
 	@OneToOne
-	@JoinColumn(name = "host_id", referencedColumnName = "user_id")
-	private User host;
-
-	@OneToOne
 	@JoinColumn(name = "participant_id", referencedColumnName = "user_id")
 	private User participant;
 

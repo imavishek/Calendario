@@ -29,11 +29,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "user")
 @EntityListeners(AuditingEntityListener.class)
 @Data
+@NoArgsConstructor
 public class User implements Serializable {
 
 	@Id
@@ -64,4 +66,8 @@ public class User implements Serializable {
 	@LastModifiedDate
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date recordUpdated;
+
+	public User(UUID userId) {
+		this.userId = userId;
+	}
 }

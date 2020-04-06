@@ -38,4 +38,12 @@ public class MessageProperties {
 	private String invalid_access_token;
 
 	private String access_denied;
+
+	private String slot_create_success;
+
+	private String slot_create_failed;
+
+	private String event_create_success;
+
+	private String event_create_failed;
 }
