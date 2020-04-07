@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: eureka-server
+  security:
+    user:
+      name: eurekaserver
+      password: eurekaserver
+      roles:
+      - ADMIN
+
+eureka:
+  instance:
+    hostname: eureka-server
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://eurekaserver:eurekaserver@eureka-server/eureka/
