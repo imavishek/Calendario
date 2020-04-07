@@ -8,7 +8,7 @@ metadata:
 spec:
   ports:
     - name: ui
-      port: 8080
+      port: 80
       targetPort: 9411
       protocol: TCP
   selector:

@@ -1,7 +1,7 @@
 apiVersion: skaffold/v2beta1
 kind: Config
 metadata:
-  name: skaffold-rabbitmq
+  name: skaffold-zipkin
 
 deploy:
   kubectl:
