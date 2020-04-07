@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    region: default
+    registry-fetch-interval-seconds: 10
+    serviceUrl:
+      defaultZone: http://eurekaserver:eurekaserver@eureka-server/eureka/
+
+spring:
+  application:
+    name: zuul-gateway
+  cloud:
+    inetutils:
+      ignoredInterfaces:
+        - docker
+        - eth.*
+        - lo
+      preferredNetworks:
+        - 10.0.0
+    config:
+      uri: http://config-server
+      username: configserver
+      password: configserver

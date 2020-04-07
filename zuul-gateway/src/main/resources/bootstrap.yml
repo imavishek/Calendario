@@ -5,7 +5,12 @@ eureka:
     serviceUrl:
       defaultZone: http://eurekaserver:eurekaserver@localhost:8030/eureka/
 
+server:
+  port: 8034
+
 spring:
+  application:
+    name: zuul-gateway
   cloud:
     inetutils:
       ignoredInterfaces:
@@ -15,7 +20,6 @@ spring:
       preferredNetworks:
         - 10.0.0
     config:
-      uri:
-      - http://localhost:8031
+      uri: http://localhost:8031
       username: configserver
       password: configserver

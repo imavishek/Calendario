@@ -16,15 +16,9 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
-import com.calendario.global.common.microservice.constant.enums.Status;
-import com.calendario.global.common.microservice.dto.Response;
-import com.calendario.global.common.microservice.handler.ApiExceptionHandler;
-import com.calendario.global.common.microservice.util.ResponseUtil;
-
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class,
 		ManagementWebSecurityAutoConfiguration.class }, scanBasePackages = {
-				"com.calendario.zuul.*" }, scanBasePackageClasses = { ApiExceptionHandler.class, Status.class,
-						Response.class, ResponseUtil.class })
+				"com.calendario.global.common.microservice.*", "com.calendario.zuul.*" })
 @EnableZuulProxy
 @EnableEurekaClient
 public class ZuulGatewayApplication {

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: zuul-gateway
+    group: com.calendario
+  name: zuul-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zuul-gateway
+      group: com.calendario
+  template:
+    metadata:
+      labels:
+        app: zuul-gateway
+        group: com.calendario
+    spec:
+      containers:
+        - name: zuul-gateway
+          image: asia.gcr.io/aashayein/calendario/microservices/zuul-gateway
+          ports:
+            - containerPort: 8080
