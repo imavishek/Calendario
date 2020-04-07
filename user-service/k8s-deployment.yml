@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: user-service
+    group: com.calendario
+  name: user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+      group: com.calendario
+  template:
+    metadata:
+      labels:
+        app: user-service
+        group: com.calendario
+    spec:
+      containers:
+        - name: user-service
+          image: asia.gcr.io/aashayein/calendario/microservices/user-service
+          ports:
+            - containerPort: 8080

@@ -1,8 +1,0 @@
-server:
-  port: 8036
-
-spring:
-  application:
-    name: user-service
-  liquibase:
-    change-log: classpath:/db/db.changelog-master.xml

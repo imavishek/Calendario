@@ -9,6 +9,7 @@
 
 package com.calendario.user.serviceImpl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -90,7 +91,8 @@ public class AvailableSlotServiceImpl implements AvailableSlotService {
 
 	@Override
 	public AvailableSlotsDto getAvailableSlots(UUID userId) {
-		List<AvailableSlot> availableSlots = availableSlotRepository.findByUserUserIdAndStatus(userId, (byte) 1);
+		List<AvailableSlot> availableSlots = availableSlotRepository
+				.findAllByUserUserIdAndStatusAndDateGreaterThanEqual(userId, (byte) 1, LocalDate.now());
 
 		if (availableSlots.isEmpty())
 			return null;

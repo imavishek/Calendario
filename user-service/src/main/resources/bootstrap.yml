@@ -1,0 +1,27 @@
+eureka:
+  client:
+    region: default
+    registry-fetch-interval-seconds: 10
+    serviceUrl:
+      defaultZone: http://eurekaserver:eurekaserver@localhost:8030/eureka/
+
+server:
+  port: 8036
+
+spring:
+  application:
+    name: user-service
+  cloud:
+    inetutils:
+      ignoredInterfaces:
+        - docker
+        - eth.*
+        - lo
+      preferredNetworks:
+        - 10.0.0
+    config:
+      uri: http://localhost:8031
+      username: configserver
+      password: configserver
+  liquibase:
+    change-log: classpath:/db/db.changelog-master.xml

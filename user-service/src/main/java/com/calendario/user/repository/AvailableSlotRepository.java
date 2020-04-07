@@ -9,6 +9,7 @@
 
 package com.calendario.user.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,5 +19,5 @@ import com.calendario.user.entities.AvailableSlot;
 
 public interface AvailableSlotRepository extends JpaRepository<AvailableSlot, UUID> {
 
-	List<AvailableSlot> findByUserUserIdAndStatus(UUID userId, Byte status);
+	List<AvailableSlot> findAllByUserUserIdAndStatusAndDateGreaterThanEqual(UUID userId, Byte status, LocalDate date);
 }
