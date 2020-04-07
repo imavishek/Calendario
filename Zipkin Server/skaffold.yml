@@ -1,0 +1,9 @@
+apiVersion: skaffold/v2beta1
+kind: Config
+metadata:
+  name: skaffold-rabbitmq
+
+deploy:
+  kubectl:
+    manifests:
+      - k8s-*

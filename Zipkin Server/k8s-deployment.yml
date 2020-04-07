@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: zipkin
+    group: com.calendario
+  name: zipkin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zipkin
+      group: com.calendario
+  template:
+    metadata:
+      labels:
+        app: zipkin
+        group: com.calendario
+    spec:
+      containers:
+        - name: zipkin
+          image: openzipkin/zipkin
+          ports:
+            - containerPort: 9411
+              name: ui
