@@ -18,6 +18,17 @@
 		<global-common-database.version>0.0.1</global-common-database.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<!-- GCP properties -->
+		<gcp.project>aashayein</gcp.project>
+		<gcp.container.registry.root>asia.gcr.io</gcp.container.registry.root>
+		<gcp.docker.prefix>${gcp.project}</gcp.docker.prefix>
+
+		<!-- Docker properties -->
+		<docker.image.business.prefix>calendario/microservices</docker.image.business.prefix>
+		<docker.image.prefix>${gcp.docker.prefix}/${docker.image.business.prefix}</docker.image.prefix>
+		<docker.image.tag>latest</docker.image.tag>
+		<docker.image.name>${gcp.container.registry.root}/${docker.image.prefix}/${project.artifactId}:${docker.image.tag}</docker.image.name>
 	</properties>
 
 
@@ -115,4 +126,31 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>2.0.0</version>
+				<configuration>
+					<!-- By default, Jib uses the distro-less java image. -->
+					<!-- <from> <image>openjdk:8</image> </from> -->
+					<to>
+						<image>${docker.image.name}</image>
+						<credHelper>gcr</credHelper>
+					</to>
+					<container>
+						<jvmFlags>
+							<jvmFlag>-Dspring.profiles.active=prod</jvmFlag>
+						</jvmFlags>
+					</container>
+					<ports>
+						<port>8080</port>
+					</ports>
+					<allowInsecureRegistries>true</allowInsecureRegistries>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
