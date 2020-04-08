@@ -65,7 +65,7 @@ public class ZuulFallbackProvider implements FallbackProvider {
 			@Override
 			public InputStream getBody() throws IOException {
 				HttpStatus status = HttpStatus.SERVICE_UNAVAILABLE;
-				String message = "Service is unavailable or down. Please try later.";
+				String message = "Service " + route + " is unavailable or down. Please try later.";
 
 				Response<Object> errorResponse = ResponseUtil.getResponse(status.value(), "Service Unavailable",
 						message, null);
