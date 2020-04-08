@@ -11,7 +11,6 @@ package com.calendario.user.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -40,7 +39,6 @@ public class SpringConfiguration {
 	}
 
 	@Bean
-	@LoadBalanced
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}

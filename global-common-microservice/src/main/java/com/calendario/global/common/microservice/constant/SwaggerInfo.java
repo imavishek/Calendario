@@ -11,7 +11,7 @@ package com.calendario.global.common.microservice.constant;
 
 public class SwaggerInfo {
 
-	public static final String ACCESS_TOKEN_URL = "http://localhost:8034/api/1.0/oauth-server/oauth/token";
+	public static final String ACCESS_TOKEN_URL = "http://oauth-server/oauth/token";
 
 	public static final String SECURITY_SCHEME_NAME = "Spring Swagger Oauth";
 }

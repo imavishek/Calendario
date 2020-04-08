@@ -128,7 +128,7 @@ public class ApiExceptionHandler {
 	 * @return ResponseEntity : Object containing the response status and Response
 	 *         object.
 	 */
-	@ExceptionHandler({ MethodArgumentTypeMismatchException.class, HttpMessageNotReadableException.class })
+	@ExceptionHandler({ MethodArgumentTypeMismatchException.class, IllegalArgumentException.class, HttpMessageNotReadableException.class })
 	public ResponseEntity<Response<Object>> handleCommonBadRequestException(Exception e) {
 
 		HttpStatus status = HttpStatus.BAD_REQUEST;

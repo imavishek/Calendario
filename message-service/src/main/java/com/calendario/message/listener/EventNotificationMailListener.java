@@ -166,7 +166,6 @@ public class EventNotificationMailListener {
 			log.info("ICalender data: /n" + calendar.toString());
 
 			String path = fileUtil.getDirectoryPath("/calendar/", calendarFileName);
-			System.out.println(path);
 			FileOutputStream fos = new FileOutputStream(path);
 			CalendarOutputter outputter = new CalendarOutputter();
 			outputter.output(calendar, fos);

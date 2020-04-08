@@ -44,6 +44,9 @@ public class MessageUtil {
 	@Autowired
 	private FileUtil fileUtil;
 
+	@Autowired
+	private ClassPathResourceUtil classPathResourceUtil;
+
 	public Boolean sendEmail(MessageDto message) {
 
 		Boolean success = false;
@@ -74,12 +77,17 @@ public class MessageUtil {
 			if (message.getBcc() != null)
 				helper.setBcc(new InternetAddress(message.getBcc()));
 			helper.setText(html, true);
-			helper.addInline("logo", new File(fileUtil.getDirectoryPath(rootPath, "/Calendario.png")));
-			helper.addInline("google", new File(fileUtil.getDirectoryPath(rootPath, "/ico_google.png")));
-			helper.addInline("facebook", new File(fileUtil.getDirectoryPath(rootPath, "/ico_facebook.png")));
-			helper.addInline("twitter", new File(fileUtil.getDirectoryPath(rootPath, "/ico_twitter.png")));
-			helper.addInline("instagram", new File(fileUtil.getDirectoryPath(rootPath, "/ico_instagram.png")));
-			helper.addInline("linkedin", new File(fileUtil.getDirectoryPath(rootPath, "/ico_linkedin.png")));
+			helper.addInline("logo", classPathResourceUtil.getClassPathResource(rootPath, "/Calendario.png").getFile());
+			helper.addInline("google",
+					classPathResourceUtil.getClassPathResource(rootPath, "/ico_google.png").getFile());
+			helper.addInline("facebook",
+					classPathResourceUtil.getClassPathResource(rootPath, "/ico_facebook.png").getFile());
+			helper.addInline("twitter",
+					classPathResourceUtil.getClassPathResource(rootPath, "/ico_twitter.png").getFile());
+			helper.addInline("instagram",
+					classPathResourceUtil.getClassPathResource(rootPath, "/ico_instagram.png").getFile());
+			helper.addInline("linkedin",
+					classPathResourceUtil.getClassPathResource(rootPath, "/ico_linkedin.png").getFile());
 			helper.setSubject(message.getSubject());
 
 			mailSender.send(mimeMessage);
