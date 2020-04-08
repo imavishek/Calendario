@@ -12,6 +12,9 @@ spring:
   application:
     name: oauth-server
   cloud:
+    gcp:
+      credentials:
+        location: classpath:microservice-admin-key.json
     inetutils:
       ignoredInterfaces:
         - docker

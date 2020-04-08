@@ -44,7 +44,7 @@
 				</p>
 			</div>
 			<div id="copyright" style="color: rgb(126, 129, 140);font-size: 9px;text-align: center;padding-top: 5px;font-family: Roboto, Arial, sans-serif;font-style: italic;">
-				<span> &copy; Copyright 2019 Calendario All rights reserved. </span>
+				<span> &copy; Copyright 2020 Calendario All rights reserved. </span>
 			</div>
 		</div>
 	</body>
