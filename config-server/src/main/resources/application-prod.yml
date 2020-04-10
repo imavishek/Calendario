@@ -19,3 +19,12 @@ spring:
       password: configserver
       roles:
       - ADMIN
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    region: default
+    registry-fetch-interval-seconds: 10
+    serviceUrl:
+      defaultZone: http://eurekaserver:eurekaserver@eureka-server/eureka/

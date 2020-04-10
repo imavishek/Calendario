@@ -19,6 +19,6 @@ spec:
     spec:
       containers:
         - name: oauth-server
-          image: asia.gcr.io/aashayein/calendario/microservices/oauth-server
+          image: asia.gcr.io/calendario-273709/microservices/oauth-server
           ports:
             - containerPort: 8080

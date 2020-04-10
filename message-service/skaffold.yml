@@ -6,7 +6,7 @@ build:
   tagPolicy:
     sha256: {}
   artifacts:
-    - image: asia.gcr.io/aashayein/calendario/microservices/message-service
+    - image: asia.gcr.io/calendario-273709/microservices/message-service
       context: .
       jib:
         project: com.calendario:message-service

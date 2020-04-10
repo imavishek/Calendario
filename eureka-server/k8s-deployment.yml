@@ -19,6 +19,6 @@ spec:
     spec:
       containers:
         - name: eureka-server
-          image: asia.gcr.io/aashayein/calendario/microservices/eureka-server
+          image: asia.gcr.io/calendario-273709/microservices/eureka-server
           ports:
             - containerPort: 8080

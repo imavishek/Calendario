@@ -1,10 +1,3 @@
-eureka:
-  client:
-    region: default
-    registry-fetch-interval-seconds: 10
-    serviceUrl:
-      defaultZone: http://eurekaserver:eurekaserver@localhost:8030/eureka/
-
 server:
   port: 8037
 

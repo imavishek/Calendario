@@ -19,6 +19,6 @@ spec:
     spec:
       containers:
         - name: config-server
-          image: asia.gcr.io/aashayein/calendario/microservices/config-server
+          image: asia.gcr.io/calendario-273709/microservices/config-server
           ports:
             - containerPort: 8080

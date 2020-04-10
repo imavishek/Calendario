@@ -1,3 +1,6 @@
+server:
+  port: 8030
+
 spring:
   application:
     name: eureka-server
@@ -8,14 +11,12 @@ spring:
       roles:
       - ADMIN
 
-server:
-  port: 8030
-
 eureka:
   instance:
+    prefer-ip-address: true
     hostname: localhost
   client:
     registerWithEureka: false
     fetchRegistry: false
     serviceUrl:
-      defaultZone: http://eurekaserver:eurekaserver@${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${eureka.instance.hostname}:${server.port}/eureka/

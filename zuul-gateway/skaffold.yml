@@ -6,7 +6,7 @@ build:
   tagPolicy:
     sha256: {}
   artifacts:
-    - image: asia.gcr.io/aashayein/calendario/microservices/zuul-gateway
+    - image: asia.gcr.io/calendario-273709/microservices/zuul-gateway
       context: .
       jib:
         project: com.calendario:zuul-gateway

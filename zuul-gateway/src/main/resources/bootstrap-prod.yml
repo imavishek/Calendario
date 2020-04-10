@@ -1,13 +1,6 @@
 server:
   port: 8080
 
-eureka:
-  client:
-    region: default
-    registry-fetch-interval-seconds: 10
-    serviceUrl:
-      defaultZone: http://eurekaserver:eurekaserver@eureka-server/eureka/
-
 spring:
   application:
     name: zuul-gateway
@@ -23,3 +16,8 @@ spring:
       uri: http://config-server
       username: configserver
       password: configserver
+
+zuul:
+  ribbon:
+    eager-load:
+      enabled: true

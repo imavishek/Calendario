@@ -19,6 +19,6 @@ spec:
     spec:
       containers:
         - name: user-service
-          image: asia.gcr.io/aashayein/calendario/microservices/user-service
+          image: asia.gcr.io/calendario-273709/microservices/user-service
           ports:
             - containerPort: 8080

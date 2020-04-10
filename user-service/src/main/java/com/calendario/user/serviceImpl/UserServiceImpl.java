@@ -26,6 +26,7 @@ import com.calendario.global.common.microservice.constant.enums.Status;
 import com.calendario.global.common.microservice.dto.Response;
 import com.calendario.global.common.microservice.exceptions.CalendarioBadRequestApiException;
 import com.calendario.global.common.microservice.exceptions.CalendarioInvalidTokenException;
+import com.calendario.global.common.microservice.exceptions.CalendarioNotFoundApiException;
 import com.calendario.global.common.microservice.exceptions.CalendarioUserEmailExistsException;
 import com.calendario.user.dto.ActiveProfileDto;
 import com.calendario.user.dto.PasswordDto;
@@ -176,8 +177,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUserByUserId(UUID userId) {
-		return userRepository.findById(userId).orElse(null);
+	public User getUserByUserId(UUID userId) throws CalendarioNotFoundApiException {
+		return userRepository.findById(userId)
+				.orElseThrow(() -> new CalendarioNotFoundApiException("User not found. UserId: " + userId));
 	}
 
 	private Boolean savePassword(PasswordDto passwordDto) throws URISyntaxException {

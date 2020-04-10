@@ -76,8 +76,9 @@ public class AvailableSlotServiceImpl implements AvailableSlotService {
 	}
 
 	@Override
-	public AvailableSlot getAvailableSlotBySlotId(UUID slotId) {
-		return availableSlotRepository.findById(slotId).orElse(null);
+	public AvailableSlot getAvailableSlotBySlotId(UUID slotId) throws CalendarioNotFoundApiException {
+		return availableSlotRepository.findById(slotId)
+				.orElseThrow(() -> new CalendarioNotFoundApiException("Slot not found. SlotId: " + slotId));
 	}
 
 	@Override

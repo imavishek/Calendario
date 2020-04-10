@@ -15,6 +15,7 @@ import java.util.UUID;
 
 import com.calendario.global.common.microservice.exceptions.CalendarioBadRequestApiException;
 import com.calendario.global.common.microservice.exceptions.CalendarioInvalidTokenException;
+import com.calendario.global.common.microservice.exceptions.CalendarioNotFoundApiException;
 import com.calendario.global.common.microservice.exceptions.CalendarioUserEmailExistsException;
 import com.calendario.user.dto.ActiveProfileDto;
 import com.calendario.user.dto.UserRegisterDto;
@@ -32,5 +33,5 @@ public interface UserService {
 
 	User getUserByEmail(String email);
 
-	User getUserByUserId(UUID userId);
+	User getUserByUserId(UUID userId) throws CalendarioNotFoundApiException;
 }

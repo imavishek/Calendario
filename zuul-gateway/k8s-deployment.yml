@@ -19,6 +19,6 @@ spec:
     spec:
       containers:
         - name: zuul-gateway
-          image: asia.gcr.io/aashayein/calendario/microservices/zuul-gateway
+          image: asia.gcr.io/calendario-273709/microservices/zuul-gateway
           ports:
             - containerPort: 8080

@@ -6,7 +6,7 @@ build:
   tagPolicy:
     sha256: {}
   artifacts:
-    - image: asia.gcr.io/aashayein/calendario/microservices/oauth-server
+    - image: asia.gcr.io/calendario-273709/microservices/oauth-server
       context: .
       jib:
         project: com.calendario:oauth-server

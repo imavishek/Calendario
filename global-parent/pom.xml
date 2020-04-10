@@ -21,12 +21,12 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<!-- GCP properties -->
-		<gcp.project.id>aashayein</gcp.project.id>
+		<gcp.project.id>calendario-273709</gcp.project.id>
 		<gcp.container.registry.location>asia.gcr.io</gcp.container.registry.location>
 		<gcp.container.registry.prefix>${gcp.container.registry.location}/${gcp.project.id}</gcp.container.registry.prefix>
 
 		<!-- Docker properties -->
-		<docker.image.business.prefix>calendario/microservices</docker.image.business.prefix>
+		<docker.image.business.prefix>microservices</docker.image.business.prefix>
 		<docker.image.prefix>${gcp.container.registry.prefix}/${docker.image.business.prefix}</docker.image.prefix>
 		<docker.image.tag>latest</docker.image.tag>
 		<docker.image.name>${docker.image.prefix}/${project.artifactId}</docker.image.name>

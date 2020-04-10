@@ -20,7 +20,7 @@ public interface AvailableSlotService {
 
 	Boolean createSlots(SlotDto slotDto) throws CalendarioNotFoundApiException;
 
-	AvailableSlot getAvailableSlotBySlotId(UUID slotId);
+	AvailableSlot getAvailableSlotBySlotId(UUID slotId) throws CalendarioNotFoundApiException;
 
 	void deActivateSlot(UUID slotId) throws CalendarioNotFoundApiException;
 

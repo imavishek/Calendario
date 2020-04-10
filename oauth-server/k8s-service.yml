@@ -13,4 +13,4 @@ spec:
   selector:
     app: oauth-server
     group: com.calendario
-  type: ClusterIP
+  type: NodePort

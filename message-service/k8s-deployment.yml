@@ -19,6 +19,6 @@ spec:
     spec:
       containers:
         - name: message-service
-          image: asia.gcr.io/aashayein/calendario/microservices/message-service
+          image: asia.gcr.io/calendario-273709/microservices/message-service
           ports:
             - containerPort: 8080

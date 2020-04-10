@@ -6,7 +6,7 @@ build:
   tagPolicy:
     sha256: {}
   artifacts:
-    - image: asia.gcr.io/aashayein/calendario/microservices/eureka-server
+    - image: asia.gcr.io/calendario-273709/microservices/eureka-server
       context: .
       jib:
         project: com.calendario:eureka-server
