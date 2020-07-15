@@ -24,4 +24,16 @@ public class UserServiceEndpointUrl {
 	public static final String CREATE_EVENT = "/event/create";
 
 	public static final String GET_EVENT = "/event/get/{eventId}";
+
+	public static final String CREATE_POST = "/post/create";
+
+	public static final String GET_POST = "/post/get/{postId}";
+
+	public static final String GET_POST_BY_USERID = "/post/getByUserId/{userId}";
+
+	public static final String ADD_COMMENT = "/comment/add";
+
+	public static final String GET_COMMENT_BY_POSTID = "/comment/getParentCommentByPostId/{postId}";
+
+	public static final String GET_CHILD_COMMENT = "/comment/getChildComments/{commentId}";
 }

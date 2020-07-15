@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+	<changeSet author="Avishek Das" id="V-0.2-1">
+		<comment>Create table for Post.</comment>
+
+		<createTable remarks="Post Details" tableName="post">
+			<column name="post_id" type="uuid">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="Post_PK_PostId"/>
+			</column>
+			<column name="user_id" type="uuid">
+				<constraints nullable="false"/>
+			</column>
+			<column name="content" type="varchar(1000)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="posted_date" type="datetime">
+				<constraints nullable="false"/>
+			</column>
+			<column name="updated_date" type="datetime"/>
+		</createTable>
+
+		<addForeignKeyConstraint baseTableName="post" baseColumnNames="user_id" constraintName="Post_FK_UserId" referencedTableName="user"
+								 referencedColumnNames="user_id" onDelete="CASCADE" onUpdate="CASCADE"/>
+	</changeSet>
+
+	<changeSet author="Avishek Das" id="V-0.2-2">
+		<comment>Create table for Comment.</comment>
+
+		<createTable remarks="Comment Details" tableName="comment">
+			<column name="comment_id" type="uuid">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="Comment_PK_CommentId"/>
+			</column>
+			<column name="post_id" type="uuid">
+				<constraints nullable="false"/>
+			</column>
+			<column name="user_id" type="uuid">
+				<constraints nullable="false"/>
+			</column>
+			<column name="parent_comment_id" type="uuid"/>
+			<column name="content" type="varchar(500)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="commented_date" type="datetime">
+				<constraints nullable="false"/>
+			</column>
+			<column name="updated_date" type="datetime"/>
+		</createTable>
+
+		<addForeignKeyConstraint baseTableName="comment" baseColumnNames="post_id" constraintName="Comment_FK_PostId" referencedTableName="post"
+								 referencedColumnNames="post_id" onDelete="CASCADE" onUpdate="CASCADE"/>
+		<addForeignKeyConstraint baseTableName="comment" baseColumnNames="user_id" constraintName="Comment_FK_UserId" referencedTableName="user"
+								 referencedColumnNames="user_id" onDelete="CASCADE" onUpdate="CASCADE"/>
+		<addForeignKeyConstraint baseTableName="comment" baseColumnNames="parent_comment_id" constraintName="Comment_FK_ParentCommentId" referencedTableName="comment"
+								 referencedColumnNames="comment_id" onDelete="CASCADE" onUpdate="CASCADE"/>
+	</changeSet>
+</databaseChangeLog>

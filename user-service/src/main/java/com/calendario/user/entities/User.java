@@ -9,34 +9,27 @@
 
 package com.calendario.user.entities;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Entity
 @Table(name = "user")
 @EntityListeners(AuditingEntityListener.class)
-@Data
-@NoArgsConstructor
-public class User implements Serializable {
+@Getter
+@Setter
+@RequiredArgsConstructor
+public class User extends AuditModel {
 
 	@Id
 	@GeneratedValue(generator = "uuid")
@@ -57,15 +50,9 @@ public class User implements Serializable {
 	@Column(name = "active", insertable = false)
 	private Byte active;
 
-	@Column(name = "created_date", updatable = false)
-	@CreatedDate
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime recordCreated;
-
-	@Column(name = "updated_date", insertable = false)
-	@LastModifiedDate
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date recordUpdated;
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
+	private Set<Post> posts = new HashSet<>();
 
 	public User(UUID userId) {
 		this.userId = userId;

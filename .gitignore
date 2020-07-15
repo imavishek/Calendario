@@ -1,3 +1,6 @@
 .metadata
 .settings
 .project
+.idea
+calendario-build-all/logs
+calendario-build-all/calendar

@@ -46,4 +46,12 @@ public class MessageProperties {
 	private String event_create_success;
 
 	private String event_create_failed;
+
+	private String post_create_success;
+
+	private String post_create_failed;
+
+	private String comment_add_success;
+
+	private String comment_add_failed;
 }

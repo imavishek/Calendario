@@ -13,5 +13,6 @@
 	</preConditions>
 
 	<include file="db/changelog/db.changelog-0.1.xml" />
+	<include file="db/changelog/db.changelog-0.2.xml" />
 
 </databaseChangeLog>
