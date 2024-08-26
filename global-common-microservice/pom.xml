@@ -8,7 +8,7 @@
 	<description>Microservice related common dependency.</description>
 
 	<properties>
-		<swagger.version>2.9.2</swagger.version>
+		<swagger.version>2.10.0</swagger.version>
 	</properties>
 
 	<parent>
